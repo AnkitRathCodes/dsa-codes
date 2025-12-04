@@ -3,67 +3,117 @@ class node{
     int data;
     node* lc;
     node* rc;
+    node(int val){
+
+    }
 }
 class bst{
-    node* root
+    node* root;
     public:
     bst(){
-        root=nullptr;
-        root->lc=nullptr;
-        root->rc=nullptr;
+        root=nullptr; // bst mybst;
     }
-    void insert(int val){
-        node* NN = new node(val);
-        node* t=root;
-        if(root==nullptr){
-            root==NN;
-            return;
+    void Pre(node* n){
+        if(n==nullptr){
+            break;
+        }
+        cout<<n->data;
+        Pre(n->lc);
+        Pre(n->rc);
+
+    }
+    void In(node* n){
+        if(n==nullptr){
+            break;
+        }
+       
+        Pre(n->left);
+         cout<<n->data;
+        Pre(n->right);
+
+    }
+    void Post(node* n){
+        if(n==nullptr){
+            break;
+        }
+        
+        Pre(n->left);
+        Pre(n->right);
+        cout<<n->data;
+    }
+    node* insert(node* n , int val){
+        if(!n){
+            return new node(val);
+        }
+        if(val<n->data){
+            n->lc=insert(n->lc , val);
+        }else if(val >n->data){
+            n->rc=insert(n->rc , val);
+        }
+    }
+    node* insertitr(int val){
+        if(!root){
+            node* NN = node(val);
+             root=NN;
         }
         while(true){
-            if(t->data>val){
-                if(t->lc==nullptr){
+            if(root->val>val){
+                if(root->left==nullptr){
+                    node* NN = node(val);
+                    root->left=NN;
                     break;
+                }else{
+                root=root->left;
                 }
-                t=t->lc;
             }else{
-                if(t->rc==nullptr){
+                if(root->right==nullptr){
+                    node* NN = node(val);
+                    root->right=NN;
                     break;
+                }else{
+                root=root->right;
                 }
-                t=t->rc;
             }
+        }
+
+    }
+    void search(node* n ,int val){
+        if(!n){
+            cout<<"finding ...";
+            return;
+        }
+        if(val<n->data){
+            search(n->lc,val)
+        }else if(val>n->data){
+            search(n->rc,val);
+        }else if(val==n->data){
+            cout<<"found";
+            return;
+        }
+
+    }
+    void minE(node*n){
+        while(n->lc!=nullptr){
+            n=n->lc;
+        }
+        cout<<n->data;
+    }
+    void IOsuc(node* n ){
+        n=n->rc;
+        while(!n->lc){
+            n=n->lc;
+        }
+        cout<<n->data;
+    }
+    int mindepth(node* n ){
+        if(!n){
+            return;
             
         }
-        if(val<t->data){
-                t->lc=NN;
-            }else{
-                t->rc=NN;
-            }
-        
     }
-    void inserrec(int val , node* p){
-        if(p==nullptr){
-            node* NN= new node(val);
-            p=NN;
-            return;
-        }
-        if( val>p->data &&p->right==nullptr){
-            node* NN= new node(val);
-            p->right=NN;
-            return;
-        }else if(val<p->data &&p->left==nullptr){
-            node* NN= new node(val);
-            p->left=NN;
-            return;
-        }
-        if(p->data<val){
-            inserrec(val,p->right);
-        }else{
-            inserrec(val , p->left){
+}
 
-            };
-        }
-    }
-
-    
-
-};
+int main(){
+    bst b;
+    b.insert(5);
+}
